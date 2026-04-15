@@ -26,18 +26,21 @@ import httpx
 # ---------------------------------------------------------------------------
 DEFAULT_MODELS = [
     # --- Baseline ---
-    "anthropic/claude-sonnet-4",        # current prod, $15.00/M out
+    "anthropic/claude-sonnet-4",                  # current prod, $15.00/M out
 
-    # --- Same price as qwen3-235b (~$0.10/M out) ---
-    "qwen/qwen3-235b-a22b-2507",        # $0.10/M, MoE 235B, strong Chinese
-    "z-ai/glm-4-32b",                   # $0.10/M, GLM-4 32B, strong Chinese
+    # --- Budget tier (~$0.08-0.10/M out) ---
+    "qwen/qwen3-235b-a22b-2507",                  # $0.10/M, MoE 235B, strong Chinese
+    "mistralai/mistral-small-24b-instruct-2501",  # $0.08/M, Mistral, solid English chat
 
-    # --- Slightly more expensive but competitive ($0.20-0.40/M out) ---
-    "meta-llama/llama-4-scout",         # $0.30/M, MoE, 327k ctx, fast
-    "meta-llama/llama-3.3-70b-instruct", # $0.32/M, well-validated chat model
-    "bytedance-seed/seed-1.6-flash",    # $0.30/M, ByteDance, 262k ctx
-    "google/gemini-2.0-flash-lite-001", # $0.30/M, 1048k ctx, low latency
-    "deepseek/deepseek-v3.2",           # $0.38/M, top Chinese model
+    # --- Mid tier ($0.20-0.32/M out) ---
+    "mistralai/mistral-small-3.2-24b-instruct",   # $0.20/M, latest Mistral small, fast
+    "meta-llama/llama-4-scout",                   # $0.30/M, MoE, 327k ctx, fast
+    "google/gemini-2.0-flash-lite-001",           # $0.30/M, 1048k ctx, low latency
+    "meta-llama/llama-3.3-70b-instruct",          # $0.32/M, best Llama chat model
+
+    # --- Upper tier ($0.40/M out) ---
+    "google/gemini-2.5-flash-lite",               # $0.40/M, 1048k ctx, strong English
+    "openai/gpt-4.1-nano",                        # $0.40/M, OpenAI small, reliable English
 ]
 
 # ---------------------------------------------------------------------------
@@ -50,13 +53,14 @@ Keep responses warm and natural, like chatting with a close friend.
 Aim for 3-5 sentences per reply — not too short, not too long.
 """
 
-# Prompts designed to elicit ~100-200 token responses for stable TPS measurement
+# Prompts designed to elicit ~100-200 token responses for stable TPS measurement.
+# Mix of English (primary) and Chinese to reflect cocomates usage.
 USER_MESSAGES = [
+    "I've been feeling really stressed lately with work piling up. How do you usually deal with that kind of pressure?",
+    "It's been a long day and I just want to unwind. Any suggestions for a relaxing evening routine?",
+    "I had a bit of an argument with a friend today and I'm not sure how to handle it. What would you do?",
+    "I can't seem to fall asleep at night even when I'm exhausted. Any tips that actually work?",
     "今天好累，工作压力好大，感觉什么都不想做，你能陪我聊聊吗？",
-    "帮我想一个这个周末放松的计划吧，我想出去走走但又不知道去哪",
-    "I've been feeling a bit anxious and overwhelmed lately. Any tips on how to calm down and feel better?",
-    "明天要做一个重要的演讲，我特别紧张，怕自己表现不好，你觉得我该怎么准备？",
-    "最近睡眠很差，总是睡不着或者半夜醒来，你有什么好的睡前建议吗？",
 ]
 
 # ---------------------------------------------------------------------------
