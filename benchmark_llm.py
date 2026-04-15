@@ -54,13 +54,12 @@ Aim for 3-5 sentences per reply — not too short, not too long.
 """
 
 # Prompts designed to elicit ~100-200 token responses for stable TPS measurement.
-# Mix of English (primary) and Chinese to reflect cocomates usage.
 USER_MESSAGES = [
     "I've been feeling really stressed lately with work piling up. How do you usually deal with that kind of pressure?",
     "It's been a long day and I just want to unwind. Any suggestions for a relaxing evening routine?",
     "I had a bit of an argument with a friend today and I'm not sure how to handle it. What would you do?",
     "I can't seem to fall asleep at night even when I'm exhausted. Any tips that actually work?",
-    "今天好累，工作压力好大，感觉什么都不想做，你能陪我聊聊吗？",
+    "I've been feeling kind of lonely recently. Do you have any ideas for meeting new people or reconnecting with old friends?",
 ]
 
 # ---------------------------------------------------------------------------
