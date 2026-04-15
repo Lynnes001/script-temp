@@ -1,0 +1,9 @@
+[project]
+name = "benchmark-llm"
+version = "0.1.0"
+description = "LLM benchmark scripts for cocomates"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "httpx>=0.28.1",
+]
