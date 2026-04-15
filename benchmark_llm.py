@@ -25,11 +25,19 @@ import httpx
 # Models to benchmark
 # ---------------------------------------------------------------------------
 DEFAULT_MODELS = [
-    "google/gemini-2.5-flash-lite",
-    "google/gemini-2.0-flash-001",
-    "qwen/qwen3-235b-a22b-2507",
-    "deepseek/deepseek-v3.2",
-    "anthropic/claude-sonnet-4",  # baseline
+    # --- Baseline ---
+    "anthropic/claude-sonnet-4",        # current prod, $15.00/M out
+
+    # --- Same price as qwen3-235b (~$0.10/M out) ---
+    "qwen/qwen3-235b-a22b-2507",        # $0.10/M, MoE 235B, strong Chinese
+    "z-ai/glm-4-32b",                   # $0.10/M, GLM-4 32B, strong Chinese
+
+    # --- Slightly more expensive but competitive ($0.20-0.40/M out) ---
+    "meta-llama/llama-4-scout",         # $0.30/M, MoE, 327k ctx, fast
+    "meta-llama/llama-3.3-70b-instruct", # $0.32/M, well-validated chat model
+    "bytedance-seed/seed-1.6-flash",    # $0.30/M, ByteDance, 262k ctx
+    "google/gemini-2.0-flash-lite-001", # $0.30/M, 1048k ctx, low latency
+    "deepseek/deepseek-v3.2",           # $0.38/M, top Chinese model
 ]
 
 # ---------------------------------------------------------------------------
@@ -38,15 +46,17 @@ DEFAULT_MODELS = [
 SYSTEM_PROMPT = """\
 You are Coco, a friendly digital pet companion.
 Always respond in the same language as the user's last message.
-Keep responses short and natural, like texting with a close friend.
+Keep responses warm and natural, like chatting with a close friend.
+Aim for 3-5 sentences per reply — not too short, not too long.
 """
 
+# Prompts designed to elicit ~100-200 token responses for stable TPS measurement
 USER_MESSAGES = [
-    "今天好累，感觉什么都不想做",
-    "帮我想一个周末放松的计划吧",
-    "I'm feeling a bit anxious today, any tips?",
-    "明天要开会，好紧张啊",
-    "推荐一首适合睡前听的歌",
+    "今天好累，工作压力好大，感觉什么都不想做，你能陪我聊聊吗？",
+    "帮我想一个这个周末放松的计划吧，我想出去走走但又不知道去哪",
+    "I've been feeling a bit anxious and overwhelmed lately. Any tips on how to calm down and feel better?",
+    "明天要做一个重要的演讲，我特别紧张，怕自己表现不好，你觉得我该怎么准备？",
+    "最近睡眠很差，总是睡不着或者半夜醒来，你有什么好的睡前建议吗？",
 ]
 
 # ---------------------------------------------------------------------------
